@@ -42,10 +42,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.example.project.PoppinsFontFamily
 import org.example.project.PoppinsTypography
 import kotlinproject.composeapp.generated.resources.Res
-//import kotlinproject.composeapp.generated.resources.icon
-//import kotlinproject.composeapp.generated.resources.bg_image
-//import kotlinproject.composeapp.generated.resources.rightArrow
-//import kotlinproject.composeapp.generated.resources.plusCircle2
+import kotlinproject.composeapp.generated.resources.icon
+import kotlinproject.composeapp.generated.resources.bg_image
+import kotlinproject.composeapp.generated.resources.double_icon_1
+import kotlinproject.composeapp.generated.resources.rightArrow
+import kotlinproject.composeapp.generated.resources.plusCircle2
+import kotlinproject.composeapp.generated.resources.icon_calendar
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
@@ -97,14 +99,13 @@ fun MainApp(navController: NavHostController) {
                 )
             }
             Spacer(modifier = Modifier.weight(1f))
-            /*Image( modifier = Modifier.size(50.dp),
+            Image( modifier = Modifier.size(50.dp),
                 painter = painterResource(Res.drawable.icon),
-                contentDescription = "РђРІР°С‚Р°СЂ"
-            )*/
+                contentDescription = "icon"
+            )
         }
         Row(
             modifier = Modifier
-                .padding(top = 29.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -113,13 +114,13 @@ fun MainApp(navController: NavHostController) {
                 Text("18", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                 Text("Mo", fontSize = 12.sp, color = Color(0xFF94A3B8))
             }
-            Spacer(modifier = Modifier.width(34.dp))
+            Spacer(modifier = Modifier.width(30.dp))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("19", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                 Text("Tu", fontSize = 12.sp, color = Color(0xFF94A3B8))
             }
-            Spacer(modifier = Modifier.width(34.dp))
+            Spacer(modifier = Modifier.width(30.dp))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("20", fontSize = 18.sp, fontWeight = FontWeight.Medium)
@@ -136,7 +137,7 @@ fun MainApp(navController: NavHostController) {
                     ),
                 contentAlignment = Alignment.Center
             ) {
-                Spacer(modifier = Modifier.width(34.dp))
+                Spacer(modifier = Modifier.width(30.dp))
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("21", fontSize = 20.sp, fontWeight = FontWeight.Medium, color = Color(0xFFDE496E))
                     Text("Th", fontSize = 14.sp, color = Color(0xFFDE496E))
@@ -156,37 +157,157 @@ fun MainApp(navController: NavHostController) {
                 Text("22", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                 Text("Fr", fontSize = 12.sp, color = Color(0xFF94A3B8))
             }
-            Spacer(modifier = Modifier.width(34.dp))
+            Spacer(modifier = Modifier.width(30.dp))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("23", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                 Text("Sa", fontSize = 12.sp, color = Color(0xFF94A3B8))
             }
-            Spacer(modifier = Modifier.width(34.dp))
+            Spacer(modifier = Modifier.width(30.dp))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("24", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                 Text("Su", fontSize = 12.sp, color = Color(0xFF94A3B8))
             }
         }
-        Column(modifier = Modifier.padding(top = 32.dp)){
+        Column(modifier = Modifier.padding(top = 8.dp)){
             Text("Schedule Today", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
         }
-        Column (modifier = Modifier.padding(top = 36.dp)) {
+        Column (modifier = Modifier.padding(top = 32.dp)) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.align(Alignment.TopStart)) {
                     Text("8.00", fontSize = 12.sp, color = Color(0xFF94A3B8))
+                    Spacer(modifier = Modifier.height(28.dp))
                     Text("10.00", fontSize = 12.sp, color = Color(0xFF94A3B8))
                 }
 
                 Box(
                     modifier = Modifier
-                        .width(242.dp)
-                        .height(64.dp)
+                        .padding(start = 85.dp)
+                        .fillMaxWidth()
+                        .height(76.dp)
+                        .background(color = Color(0xFFDE496E),
+                            shape = RoundedCornerShape(14.dp))
+                        .align(Alignment.TopEnd)
+                ){
+                    Column(modifier = Modifier.padding(start = 18.dp, top = 14.dp)) {
+                        Text(
+                            "Rapat dengan Bruce \nWayne",
+                            fontSize = 12.sp,
+                            lineHeight = 16.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFFFFFFF)
+                        )
+                    }
+                    Column(modifier = Modifier.align(Alignment.CenterEnd).padding(end = 12.dp, top = 32.dp)){
+                        Image(
+                            painter = painterResource(Res.drawable.double_icon_1),
+                            contentDescription = "double_icon"
+                        )
+                    }
+                }
+            }
+        }
+        Column (modifier = Modifier.padding(top = 32.dp)) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.align(Alignment.TopStart)) {
+                    Text("12.00", fontSize = 12.sp, color = Color(0xFF94A3B8))
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text("14.00", fontSize = 12.sp, color = Color(0xFF94A3B8))
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Text("18.00", fontSize = 12.sp, color = Color(0xFF94A3B8))
+                }
+
+                Box(
+                    modifier = Modifier
+                        .padding(start = 85.dp)
+                        .fillMaxWidth()
+                        .height(112.dp)
                         .background(color = Color(0xFFDE496E), shape = RoundedCornerShape(14.dp))
                         .align(Alignment.TopEnd)
-                )
+                ){
+                    Column(modifier = Modifier.padding(start = 18.dp, top = 24.dp)) {
+                        Text(
+                            "Test wawasan \nkebangasaan di Dusun \nWakanda",
+                            fontSize = 12.sp,
+                            lineHeight = 16.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFFFFFFFF)
+                        )
+                    }
+                    Column(modifier = Modifier.align(Alignment.CenterEnd).padding(end = 12.dp, top = 65.dp)){
+                        Image(
+                            painter = painterResource(Res.drawable.double_icon_1),
+                            contentDescription = "double_icon"
+                        )
+                    }
+                }
             }
+        }
+        Column(modifier = Modifier.padding(top = 36.dp)){
+            Column(){
+                Text("Reminder", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF1E293B))
+                Text("Dont forget schedule for tomorrow", fontSize = 12.sp, fontWeight = FontWeight.Normal, color = Color(0xFF575A61))
+            }
+            Column(modifier = Modifier.padding(top = 14.dp)){
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(64.dp)
+                        .background(
+                            color = Color(0xFF8572FF),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                ) {
+                    Box(modifier = Modifier
+                        .padding(top = 8.dp, start = 10.dp, bottom = 8.dp)
+                        .size(48.dp)
+                        .background(
+                            color = Color(0xFFBAB0F9),
+                            shape = RoundedCornerShape(10.dp)
+                        ),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Image( modifier = Modifier.size(24.dp),
+                            painter = painterResource(Res.drawable.icon_calendar),
+                            contentDescription = "icon"
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(14.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(64.dp)
+                        .background(
+                            color = Color(0xFF8572FF),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                ) {
+                    Box(modifier = Modifier
+                        .padding(top = 8.dp, start = 10.dp, bottom = 8.dp)
+                        .size(48.dp)
+                        .background(
+                            color = Color(0xFFBAB0F9),
+                            shape = RoundedCornerShape(10.dp)
+                        ),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Image( modifier = Modifier.size(24.dp),
+                            painter = painterResource(Res.drawable.icon_calendar),
+                            contentDescription = "icon"
+                        )
+                    }
+                    Column(){
+                        Text("Urus SIM di samsat Klayatan",
+                            fontSize = 12.sp,
+                            lineHeight = 26.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(0xFFFFFFFF))
+                    }
+                }
+            }
+
         }
         Spacer(modifier = Modifier.height(30.dp))
         Button(
@@ -239,12 +360,12 @@ fun AppSetSchedule(navController: NavHostController) {
                     fontWeight = FontWeight.SemiBold
                 )
             }
-           /* Column() {
+           Column() {
                 Image(
                     painter = painterResource(Res.drawable.bg_image),
                     contentDescription = "Задний фон"
                 )
-            }*/
+            }
         }
         Column(modifier = Modifier.padding(end = 24.dp)){
             Row(){
@@ -333,14 +454,14 @@ fun AppSetSchedule(navController: NavHostController) {
                     Text("12.00", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1E293B))
                 }
 
-               /* Image(
+               Image(
                     modifier = Modifier
                         .width(24.dp)
                         .height(24.dp)
                         .align(Alignment.Center),
                     painter = painterResource(Res.drawable.rightArrow),
                     contentDescription = "Стрелка вправо"
-                )*/
+                )
                 Column(
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
@@ -466,10 +587,10 @@ fun AppSetSchedule(navController: NavHostController) {
                     )
                     Text("Weekend", modifier = Modifier.align(Alignment.Center).padding(start = 12.dp), fontSize = 10.sp, fontWeight = FontWeight.Normal)
                 }
-                /*Image(modifier = Modifier.padding(start = 14.dp).size(24.dp),
+                Image(modifier = Modifier.padding(start = 14.dp).size(24.dp),
                     painter = painterResource(Res.drawable.plusCircle2),
                     contentDescription = "Задний фон"
-                )*/
+                )
             }
             Row(modifier = Modifier.padding(top = 35.dp)){
                 Text("Note", fontSize = 16.sp, fontWeight = FontWeight.Medium)
@@ -487,7 +608,7 @@ fun AppSetSchedule(navController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(24.dp))
             Button(
-                onClick = {},
+                onClick = {navController.navigate(Routes.Home.route)},
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
