@@ -51,6 +51,8 @@ import kotlinproject.composeapp.generated.resources.icon_calendar
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
+import kotlinx.datetime.*
+import androidx.compose.runtime.*
 
 sealed class Routes(val route: String) {
     object Home : Routes("home")
@@ -110,7 +112,7 @@ fun MainApp(navController: NavHostController) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            /*Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("18", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                 Text("Mo", fontSize = 12.sp, color = Color(0xFF94A3B8))
             }
@@ -168,7 +170,8 @@ fun MainApp(navController: NavHostController) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text("24", fontSize = 18.sp, fontWeight = FontWeight.Medium)
                 Text("Su", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
+            }*/
+            CurrentDates()
         }
         Column(modifier = Modifier.padding(top = 8.dp)){
             Text("Schedule Today", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
@@ -341,6 +344,99 @@ fun MainApp(navController: NavHostController) {
     }
 }
 
+@Composable
+fun CurrentDates() {
+    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+
+    // Список дат: 2 дня назад, вчера, сегодня, завтра, послезавтра
+    val dates = listOf(
+        today.minus(2, DateTimeUnit.DAY),
+        today.minus(1, DateTimeUnit.DAY),
+        today,
+        today.plus(1, DateTimeUnit.DAY),
+        today.plus(2, DateTimeUnit.DAY)
+    )
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        dates.forEach { date ->
+            // Проверяем, является ли дата сегодняшней
+            if (date == today) {
+                // Стиль для ТЕКУЩЕЙ ДАТЫ (розовый блок)
+                CurrentDateBox(date)
+            } else {
+                // Стиль для остальных дат (простой текст)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(horizontal = 15.dp)
+                ) {
+                    Text(
+                        text = date.dayOfMonth.toString(),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Text(
+                        text = getShortWeekdayName(date.dayOfWeek),
+                        fontSize = 12.sp,
+                        color = Color(0xFF94A3B8)
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.width(30.dp)) // Отступ между элементами
+        }
+    }
+}
+
+// Функция для стилизованного отображения текущей даты
+@Composable
+fun CurrentDateBox(date: LocalDate) {
+    Box(
+        modifier = Modifier
+            .width(53.dp)
+            .height(79.dp)
+            .background(
+                color = Color(0xFFFFF0F0),
+                shape = RoundedCornerShape(16.dp)
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                date.dayOfMonth.toString(),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFFDE496E)
+            )
+            Text(
+                getShortWeekdayName(date.dayOfWeek),
+                fontSize = 14.sp,
+                color = Color(0xFFDE496E)
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Box(
+                modifier = Modifier
+                    .size(6.dp)
+                    .background(
+                        color = Color(0xFFDE496E),
+                        shape = CircleShape)
+            )
+        }
+    }
+}
+
+fun getShortWeekdayName(dayOfWeek: DayOfWeek): String {
+    return when (dayOfWeek) {
+        DayOfWeek.MONDAY -> "Mo"
+        DayOfWeek.TUESDAY -> "Tu"
+        DayOfWeek.WEDNESDAY -> "We"
+        DayOfWeek.THURSDAY -> "Th"
+        DayOfWeek.FRIDAY -> "Fr"
+        DayOfWeek.SATURDAY -> "Sa"
+        DayOfWeek.SUNDAY -> "Su"
+    }
+}
 
 
 @Composable
