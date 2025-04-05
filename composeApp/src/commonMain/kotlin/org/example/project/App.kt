@@ -48,15 +48,17 @@ import kotlinproject.composeapp.generated.resources.double_icon_1
 import kotlinproject.composeapp.generated.resources.rightArrow
 import kotlinproject.composeapp.generated.resources.plusCircle2
 import kotlinproject.composeapp.generated.resources.icon_calendar
+import kotlinproject.composeapp.generated.resources.icon_time
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import kotlinx.datetime.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.style.TextAlign
 
 sealed class Routes(val route: String) {
     object Home : Routes("home")
-    object Schedule : Routes("contact")
+    object Schedule : Routes("schedule")
 }
 
 
@@ -112,65 +114,6 @@ fun MainApp(navController: NavHostController) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            /*Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("18", fontSize = 18.sp, fontWeight = FontWeight.Medium)
-                Text("Mo", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
-            Spacer(modifier = Modifier.width(30.dp))
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("19", fontSize = 18.sp, fontWeight = FontWeight.Medium)
-                Text("Tu", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
-            Spacer(modifier = Modifier.width(30.dp))
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("20", fontSize = 18.sp, fontWeight = FontWeight.Medium)
-                Text("Wed", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
-            Spacer(modifier = Modifier.width(17.dp))
-            Box(
-                modifier = Modifier
-                    .width(53.dp)
-                    .height(79.dp)
-                    .background(
-                        color = Color(0xFFFFF0F0),
-                        shape = RoundedCornerShape(16.dp)
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Spacer(modifier = Modifier.width(30.dp))
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("21", fontSize = 20.sp, fontWeight = FontWeight.Medium, color = Color(0xFFDE496E))
-                    Text("Th", fontSize = 14.sp, color = Color(0xFFDE496E))
-                    Box(
-                        modifier = Modifier
-                            .offset(y = 4.dp)
-                            .size(6.dp)
-                            .background(
-                                color = Color(0xFFDE496E),
-                                shape = CircleShape
-                            )
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.width(17.dp))
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("22", fontSize = 18.sp, fontWeight = FontWeight.Medium)
-                Text("Fr", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
-            Spacer(modifier = Modifier.width(30.dp))
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("23", fontSize = 18.sp, fontWeight = FontWeight.Medium)
-                Text("Sa", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
-            Spacer(modifier = Modifier.width(30.dp))
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("24", fontSize = 18.sp, fontWeight = FontWeight.Medium)
-                Text("Su", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }*/
             CurrentDates()
         }
         Column(modifier = Modifier.padding(top = 8.dp)){
@@ -276,6 +219,41 @@ fun MainApp(navController: NavHostController) {
                             contentDescription = "icon"
                         )
                     }
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp, start = 84.dp),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            "Urus SIM di samsat Klayatan",
+                            fontSize = 12.sp,
+                            lineHeight = 26.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(0xFFFFFFFF),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(start = 84.dp, top = 30.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            modifier = Modifier.size(16.dp),
+                            painter = painterResource(Res.drawable.icon_time),
+                            contentDescription = "clock icon"
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            "12.00 - 16.00",
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(0xFFFFFFFF)
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(14.dp))
                 Box(
@@ -287,26 +265,57 @@ fun MainApp(navController: NavHostController) {
                             shape = RoundedCornerShape(16.dp)
                         )
                 ) {
-                    Box(modifier = Modifier
-                        .padding(top = 8.dp, start = 10.dp, bottom = 8.dp)
-                        .size(48.dp)
-                        .background(
-                            color = Color(0xFFBAB0F9),
-                            shape = RoundedCornerShape(10.dp)
-                        ),
+                    Box(
+                        modifier = Modifier
+                            .padding(top = 8.dp, start = 10.dp, bottom = 8.dp)
+                            .size(48.dp)
+                            .background(
+                                color = Color(0xFFBAB0F9),
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                            .align(Alignment.CenterStart),
                         contentAlignment = Alignment.Center
-                    ){
-                        Image( modifier = Modifier.size(24.dp),
+                    ) {
+                        Image(
+                            modifier = Modifier.size(24.dp),
                             painter = painterResource(Res.drawable.icon_calendar),
-                            contentDescription = "icon"
+                            contentDescription = "calendar icon"
                         )
                     }
-                    Column(){
-                        Text("Urus SIM di samsat Klayatan",
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 8.dp, start = 84.dp),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            "Urus SIM di samsat Klayatan",
                             fontSize = 12.sp,
                             lineHeight = 26.sp,
                             fontWeight = FontWeight.Normal,
-                            color = Color(0xFFFFFFFF))
+                            color = Color(0xFFFFFFFF),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(start = 84.dp, top = 30.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            modifier = Modifier.size(16.dp),
+                            painter = painterResource(Res.drawable.icon_time),
+                            contentDescription = "clock icon"
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            "12.00 - 16.00",
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(0xFFFFFFFF)
+                        )
                     }
                 }
             }
@@ -348,13 +357,14 @@ fun MainApp(navController: NavHostController) {
 fun CurrentDates() {
     val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
 
-    // Список дат: 2 дня назад, вчера, сегодня, завтра, послезавтра
     val dates = listOf(
+        today.minus(3, DateTimeUnit.DAY),
         today.minus(2, DateTimeUnit.DAY),
         today.minus(1, DateTimeUnit.DAY),
         today,
         today.plus(1, DateTimeUnit.DAY),
-        today.plus(2, DateTimeUnit.DAY)
+        today.plus(2, DateTimeUnit.DAY),
+        today.minus(3, DateTimeUnit.DAY),
     )
 
     Row(
@@ -362,12 +372,40 @@ fun CurrentDates() {
         horizontalArrangement = Arrangement.Center
     ) {
         dates.forEach { date ->
-            // Проверяем, является ли дата сегодняшней
             if (date == today) {
-                // Стиль для ТЕКУЩЕЙ ДАТЫ (розовый блок)
-                CurrentDateBox(date)
+                Box(
+                    modifier = Modifier
+                        .width(53.dp)
+                        .height(79.dp)
+                        .background(
+                            color = Color(0xFFFFF0F0),
+                            shape = RoundedCornerShape(16.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            date.dayOfMonth.toString(),
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFFDE496E)
+                        )
+                        Text(
+                            getShortWeekdayName(date.dayOfWeek),
+                            fontSize = 14.sp,
+                            color = Color(0xFFDE496E)
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Box(
+                            modifier = Modifier
+                                .size(6.dp)
+                                .background(
+                                    color = Color(0xFFDE496E),
+                                    shape = CircleShape)
+                        )
+                    }
+                }
             } else {
-                // Стиль для остальных дат (простой текст)
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.padding(horizontal = 15.dp)
@@ -384,44 +422,113 @@ fun CurrentDates() {
                     )
                 }
             }
-            Spacer(modifier = Modifier.width(30.dp)) // Отступ между элементами
+            Spacer(modifier = Modifier.width(10.dp))
         }
     }
 }
 
-// Функция для стилизованного отображения текущей даты
 @Composable
-fun CurrentDateBox(date: LocalDate) {
-    Box(
+fun CurrentDatesSchedule() {
+    val today = Clock.System.todayIn(TimeZone.currentSystemDefault())
+    val dates = listOf(
+        today.minus(1, DateTimeUnit.DAY),
+        today,
+        today.plus(1, DateTimeUnit.DAY),
+        today.plus(2, DateTimeUnit.DAY)
+    )
+
+    Row(
         modifier = Modifier
-            .width(53.dp)
-            .height(79.dp)
-            .background(
-                color = Color(0xFFFFF0F0),
-                shape = RoundedCornerShape(16.dp)
-            ),
-        contentAlignment = Alignment.Center
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.Center
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                date.dayOfMonth.toString(),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium,
-                color = Color(0xFFDE496E)
-            )
-            Text(
-                getShortWeekdayName(date.dayOfWeek),
-                fontSize = 14.sp,
-                color = Color(0xFFDE496E)
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Box(
-                modifier = Modifier
-                    .size(6.dp)
-                    .background(
-                        color = Color(0xFFDE496E),
-                        shape = CircleShape)
-            )
+        dates.forEachIndexed { index, date ->
+            if (index < 3) {
+                if (date == today) {
+                    Box(
+                        modifier = Modifier
+                            .width(73.dp)
+                            .height(120.dp)
+                            .background(
+                                color = Color(0xFF8572FF),
+                                shape = RoundedCornerShape(16.dp)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                date.dayOfMonth.toString(),
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color(0xFFFFFFFF)
+                            )
+                            Text(
+                                getShortWeekdayName(date.dayOfWeek),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = Color(0xFFFFFFFF)
+                            )
+                        }
+                    }
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .width(73.dp)
+                            .height(120.dp)
+                            .background(
+                                color = Color(0xFFF1F5F9),
+                                shape = RoundedCornerShape(16.dp)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                date.dayOfMonth.toString(),
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color(0xFF4A4A4A)
+                            )
+                            Text(
+                                getShortWeekdayName(date.dayOfWeek),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = Color(0xFF4A4A4A)
+                            )
+                        }
+                    }
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .width(73.dp)
+                        .height(120.dp)
+                        .background(
+                            color = Color(0xFFF1F5F9),
+                            shape = RoundedCornerShape(16.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            "Other",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFF4A4A4A)
+                        )
+                        Text(
+                            "Date",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(0xFF4A4A4A)
+                        )
+                    }
+                }
+            }
+
+            if (index < dates.lastIndex) {
+                Spacer(modifier = Modifier.width(20.dp))
+            }
         }
     }
 }
@@ -468,64 +575,7 @@ fun AppSetSchedule(navController: NavHostController) {
                 Text("Select the date", fontSize = 16.sp, fontWeight = FontWeight.Medium)
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Row() {
-                Box(modifier = Modifier
-                    .width(73.dp)
-                    .height(120.dp)
-                    .background(color = Color(0xFFF1F5F9),
-                        shape = RoundedCornerShape(16.dp)
-                    ),
-                    contentAlignment = Alignment.Center
-                ){
-                    Column(horizontalAlignment = Alignment.CenterHorizontally){
-                        Text("22", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF4A4A4A))
-                        Text("Fr", fontSize = 12.sp, fontWeight = FontWeight.Normal, color = Color(0xFF4A4A4A))
-                    }
-                }
-                Spacer(modifier = Modifier.width(20.dp))
-                Box(modifier = Modifier
-                    .width(73.dp)
-                    .height(120.dp)
-                    .background(color = Color(0xFF8572FF),
-                        shape = RoundedCornerShape(16.dp)
-                    ),
-                    contentAlignment = Alignment.Center
-                ){
-                    Column(horizontalAlignment = Alignment.CenterHorizontally){
-                        Text("23", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFFFFFFFF))
-                        Text("Sa", fontSize = 12.sp, fontWeight = FontWeight.Normal, color = Color(0xFFFFFFFF))
-                    }
-                }
-                Spacer(modifier = Modifier.width(20.dp))
-                Box(modifier = Modifier
-                    .width(73.dp)
-                    .height(120.dp)
-                    .background(color = Color(0xFFF1F5F9),
-                        shape = RoundedCornerShape(16.dp)
-                    ),
-                    contentAlignment = Alignment.Center
-                ){
-                    Column(horizontalAlignment = Alignment.CenterHorizontally){
-                        Text("24", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF4A4A4A))
-                        Text("Su", fontSize = 12.sp, fontWeight = FontWeight.Normal, color = Color(0xFF4A4A4A))
-                    }
-                }
-                Spacer(modifier = Modifier.width(20.dp))
-                Box(modifier = Modifier
-                    .width(73.dp)
-                    .height(120.dp)
-                    .background(color = Color(0xFFF1F5F9),
-                        shape = RoundedCornerShape(16.dp)
-                    ),
-                    contentAlignment = Alignment.Center
-                ){
-                    Column(horizontalAlignment = Alignment.CenterHorizontally){
-                        Text("Other", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF4A4A4A))
-                        Text("Date", fontSize = 12.sp, fontWeight = FontWeight.Normal, color = Color(0xFF4A4A4A))
-                    }
-                }
-            }
-
+            CurrentDatesSchedule()
         }
         Spacer(modifier = Modifier.height(36.dp))
         Row(){
