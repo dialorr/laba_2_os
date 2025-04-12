@@ -25,6 +25,12 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation ("androidx.core:core-ktx:1.9.0")
+            implementation ("androidx.compose.ui:ui:1.4.0")
+            implementation ("androidx.compose.material:material:1.4.0")
+            implementation ("androidx.compose.ui:ui-tooling-preview:1.4.0")
+            implementation ("androidx.compose.runtime:runtime-livedata:1.4.0")
+
         }
         commonMain.dependencies {
             implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.1")
@@ -38,6 +44,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation("androidx.compose.ui:ui-text-google-fonts:1.7.8")
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -77,7 +84,9 @@ dependencies {
     implementation(libs.androidx.ui.android)
     implementation(libs.androidx.ui.text.android)
     implementation(libs.androidx.material3.android)
+    implementation(libs.core.ktx)
     debugImplementation(compose.uiTooling)
+
 }
 
 compose.desktop {

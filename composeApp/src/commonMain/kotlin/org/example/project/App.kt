@@ -21,8 +21,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +57,9 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import kotlinx.datetime.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.text.style.TextAlign
+import androidx.lifecycle.ViewModel
 
 sealed class Routes(val route: String) {
     object Home : Routes("home")
@@ -73,20 +78,28 @@ fun App() {
             modifier = Modifier.fillMaxSize(),
             color = Color(0xFFF4F8FB)
         ) {
-            NavHost(navController = navController, startDestination = Routes.Home.route) {
+            NavHost(navController = navController, startDestination = "home") {
+                composable("home") {
+                    MainApp(navController, "")
+                }
 
-                composable(Routes.Home.route) { MainApp(navController) }
-                composable(Routes.Schedule.route) {AppSetSchedule(navController)  }
+                composable("home/{note}") { backStackEntry ->
+                    val note = backStackEntry.arguments?.getString("note") ?: ""
+                    MainApp(navController, note)
+                }
+                composable("schedule") {
+                    AppSetSchedule(navController)
                 }
             }
         }
     }
+}
 
 
 
 @Composable
 @Preview
-fun MainApp(navController: NavHostController) {
+fun MainApp(navController: NavHostController, note: String) {
     Column(modifier = Modifier.padding(start = 24.dp, top = 56.dp, end = 24.dp)){
         Row (){
             Column() {
@@ -110,6 +123,7 @@ fun MainApp(navController: NavHostController) {
         }
         Row(
             modifier = Modifier
+                .padding(top = 29.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -138,7 +152,7 @@ fun MainApp(navController: NavHostController) {
                 ){
                     Column(modifier = Modifier.padding(start = 18.dp, top = 14.dp)) {
                         Text(
-                            "Rapat dengan Bruce \nWayne",
+                            "Rapat dengan Bruce Wayne",
                             fontSize = 12.sp,
                             lineHeight = 16.sp,
                             fontWeight = FontWeight.SemiBold,
@@ -174,7 +188,7 @@ fun MainApp(navController: NavHostController) {
                 ){
                     Column(modifier = Modifier.padding(start = 18.dp, top = 24.dp)) {
                         Text(
-                            "Test wawasan \nkebangasaan di Dusun \nWakanda",
+                            "$note",
                             fontSize = 12.sp,
                             lineHeight = 16.sp,
                             fontWeight = FontWeight.SemiBold,
@@ -364,65 +378,103 @@ fun CurrentDates() {
         today,
         today.plus(1, DateTimeUnit.DAY),
         today.plus(2, DateTimeUnit.DAY),
-        today.minus(3, DateTimeUnit.DAY),
+        today.plus(3, DateTimeUnit.DAY),
     )
 
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        dates.forEach { date ->
-            if (date == today) {
-                Box(
-                    modifier = Modifier
-                        .width(53.dp)
-                        .height(79.dp)
-                        .background(
-                            color = Color(0xFFFFF0F0),
-                            shape = RoundedCornerShape(16.dp)
-                        ),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        dates.forEachIndexed { index, date ->
+            when {
+                date == today -> {
+                    Box(
+                        modifier = Modifier
+                            .padding(horizontal = 13.dp)
+                            .offset(y = -10.dp)
+                            .width(53.dp)
+                            .height(79.dp)
+                            .background(
+                                color = Color(0xFFFFF0F0),
+                                shape = RoundedCornerShape(16.dp)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                date.dayOfMonth.toString(),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color(0xFFDE496E)
+                            )
+                            Text(
+                                getShortWeekdayName(date.dayOfWeek),
+                                fontSize = 14.sp,
+                                color = Color(0xFFDE496E)
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Box(
+                                modifier = Modifier
+                                    .size(6.dp)
+                                    .background(
+                                        color = Color(0xFFDE496E),
+                                        shape = CircleShape)
+                            )
+                        }
+                    }
+                }
+                index == 2 -> {
+                    Column(
+                        modifier = Modifier.padding(end = 0.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Text(
-                            date.dayOfMonth.toString(),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFFDE496E)
+                            text = date.dayOfMonth.toString(),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium
                         )
                         Text(
-                            getShortWeekdayName(date.dayOfWeek),
-                            fontSize = 14.sp,
-                            color = Color(0xFFDE496E)
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Box(
-                            modifier = Modifier
-                                .size(6.dp)
-                                .background(
-                                    color = Color(0xFFDE496E),
-                                    shape = CircleShape)
+                            text = getShortWeekdayName(date.dayOfWeek),
+                            fontSize = 12.sp,
+                            color = Color(0xFF94A3B8)
                         )
                     }
                 }
-            } else {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(horizontal = 15.dp)
-                ) {
-                    Text(
-                        text = date.dayOfMonth.toString(),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                    Text(
-                        text = getShortWeekdayName(date.dayOfWeek),
-                        fontSize = 12.sp,
-                        color = Color(0xFF94A3B8)
-                    )
+                index == dates.lastIndex -> {
+                    Column(
+                        modifier = Modifier.padding(end = 0.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = date.dayOfMonth.toString(),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Text(
+                            text = getShortWeekdayName(date.dayOfWeek),
+                            fontSize = 12.sp,
+                            color = Color(0xFF94A3B8)
+                        )
+                    }
+                }
+                else -> {
+                    Column(
+                        modifier = Modifier.padding(end = 38.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = date.dayOfMonth.toString(),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Text(
+                            text = getShortWeekdayName(date.dayOfWeek),
+                            fontSize = 12.sp,
+                            color = Color(0xFF94A3B8)
+                        )
+                    }
                 }
             }
-            Spacer(modifier = Modifier.width(10.dp))
         }
     }
 }
@@ -439,8 +491,7 @@ fun CurrentDatesSchedule() {
 
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
         dates.forEachIndexed { index, date ->
@@ -527,7 +578,7 @@ fun CurrentDatesSchedule() {
             }
 
             if (index < dates.lastIndex) {
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(12.dp))
             }
         }
     }
@@ -618,7 +669,7 @@ fun AppSetSchedule(navController: NavHostController) {
                 }
             }
         }
-        Column (){
+        Column (modifier = Modifier.padding(end = 23.dp)){
             Row(modifier = Modifier.padding(top = 34.dp)){
                 Text("Category", fontSize = 16.sp, fontWeight = FontWeight.Medium)
             }
@@ -738,23 +789,28 @@ fun AppSetSchedule(navController: NavHostController) {
                     contentDescription = "Задний фон"
                 )
             }
+            var noteText by rememberSaveable { mutableStateOf("") }
             Row(modifier = Modifier.padding(top = 35.dp)){
                 Text("Note", fontSize = 16.sp, fontWeight = FontWeight.Medium)
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Box(
+            TextField(
+                value = noteText,
+                onValueChange = { noteText = it },
                 modifier = Modifier
-                    .padding(end = 23.dp)
                     .fillMaxWidth()
                     .height(88.dp)
-                    .background(
-                        color = Color(0xFFF1F5F9),
-                        shape = RoundedCornerShape(16.dp)
-                    )
+                    .background(color = Color(0xFFF1F5F9), shape = RoundedCornerShape(16.dp)),
+                shape = RoundedCornerShape(16.dp),
+
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor= Color.Transparent,
+                    unfocusedBorderColor = Color.Transparent
+                )
             )
             Spacer(modifier = Modifier.height(24.dp))
             Button(
-                onClick = {navController.navigate(Routes.Home.route)},
+                onClick = {navController.navigate("home/${noteText}")},
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
@@ -783,5 +839,4 @@ fun AppSetSchedule(navController: NavHostController) {
         }
     }
 }
-
 
