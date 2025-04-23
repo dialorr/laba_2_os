@@ -1,6 +1,3 @@
 package org.example.project
 
-import androidx.compose.runtime.Composable
-
-@Composable
-internal expect fun notify(message: String)
+internal expect fun notify(context: Any, message: String)

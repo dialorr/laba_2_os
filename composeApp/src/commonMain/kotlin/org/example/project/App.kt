@@ -58,6 +58,7 @@ import org.jetbrains.compose.resources.painterResource
 import kotlinx.datetime.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.ViewModel
 
@@ -584,6 +585,7 @@ fun CurrentDatesSchedule() {
     }
 }
 
+
 fun getShortWeekdayName(dayOfWeek: DayOfWeek): String {
     return when (dayOfWeek) {
         DayOfWeek.MONDAY -> "Mo"
@@ -593,6 +595,7 @@ fun getShortWeekdayName(dayOfWeek: DayOfWeek): String {
         DayOfWeek.FRIDAY -> "Fr"
         DayOfWeek.SATURDAY -> "Sa"
         DayOfWeek.SUNDAY -> "Su"
+        else -> throw IllegalArgumentException("Unknown day: $dayOfWeek")
     }
 }
 
@@ -617,7 +620,10 @@ fun AppSetSchedule(navController: NavHostController) {
            Column() {
                 Image(
                     painter = painterResource(Res.drawable.bg_image),
-                    contentDescription = "Задний фон"
+                    contentDescription = "Задний фон",
+                    modifier = Modifier
+                        .height(132.dp)
+                        .fillMaxWidth()
                 )
             }
         }
@@ -809,8 +815,11 @@ fun AppSetSchedule(navController: NavHostController) {
                 )
             )
             Spacer(modifier = Modifier.height(24.dp))
+            val context = LocalContext.current
             Button(
-                onClick = {navController.navigate("home/${noteText}")},
+                onClick = {
+                    notify(context, "Schedule saved: $noteText")
+                    navController.navigate("home/${noteText}")},
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent
                 ),
@@ -839,4 +848,6 @@ fun AppSetSchedule(navController: NavHostController) {
         }
     }
 }
+
+
 

@@ -1,8 +1,5 @@
 package org.example.project
 
-import androidx.compose.runtime.Composable
-
-@Composable
-internal actual fun notify(message: String) {
-    println("123")
+internal actual fun notify(context: Any, message: String) {
+    println("Desktop notification: $message")
 }

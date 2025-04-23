@@ -13,7 +13,6 @@ class MainActivity : ComponentActivity() {
 
 
         setContent {
-            notify("123")
             App()
         }
     }
